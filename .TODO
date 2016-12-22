@@ -1,0 +1,7 @@
+# validate move, can move take place given piece type, starting location, and finishing location
+# maintain virtual state of board
+# start positions template
+# calculate strength of move
+# calculate potential opponents strength
+# calculate potential opponents strategy
+#

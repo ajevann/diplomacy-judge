@@ -1,0 +1,62 @@
+body {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 5px;
+}
+
+inputfields {
+  position:relative;
+  display: block;
+
+  width: 100%;
+  height: 100px;
+
+  padding: 5px;
+  border: 1px black solid;
+}
+
+row{
+  display: block;
+  width: 100%;
+}
+
+row input{
+  position:relative;
+  display: inline-block;
+  height: 30px;
+  line-height: 20px;
+  width: 300px;
+}
+
+row execute{
+  position:relative;
+  display: inline-block;
+  height:30px;
+  line-height: 20px;
+  width:100px;
+  border: 1px black solid;
+}
+
+command {
+  margin: 3px;
+  padding: 0px;
+  line-height: 15px;
+  display: block;
+  position: relative;
+
+}
+
+displayfields {
+  position:relative;
+  display: block;
+
+  width: 100%;
+  height: 100px;
+
+  padding: 5px;
+  border: 1px red solid;
+}
