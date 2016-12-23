@@ -1,9 +1,0 @@
-{
-  name: '',
-  currentPiece: '',
-  isLand: true,
-  isSea: false,
-  adjacentTiles: [
-    ''
-  ]
-},
