@@ -37,14 +37,18 @@ gulp.task('sass', function() {
 gulp.task('jslint', function() {
   return gulp.src(['app/js/**/*.js'])
     .pipe(jslint())
-    .pipe(jslint.reporter('default', true));
+    .pipe(jslint.reporter('default', true))
+    .pipe(browserSync.reload({ // Reloading with Browser Sync
+      stream: true
+    }));
 });
 
 
 // Watchers
 gulp.task('watch', function() {
   gulp.watch('app/scss/**/*.scss', ['sass']);
-  gulp.watch('app/*.html', browserSync.reload);
+  // gulp.watch('app/*.html', browserSync.reload);
+  // gulp.watch('app/js/**/*.js', ['jslint']);
   gulp.watch('app/js/**/*.js', browserSync.reload);
 });
 
@@ -97,7 +101,7 @@ gulp.task('clean:dist', function() {
 // ---------------
 
 gulp.task('serve', function(callback) {
-  runSequence(['sass', 'jslint', 'browserSync', 'watch'],
+  runSequence(['browserSync', 'watch'],
     callback
   )
 });
