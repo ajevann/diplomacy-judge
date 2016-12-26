@@ -6,13 +6,50 @@ body {
   height: 100%;
 
   margin: 5px;
+
+  box-shadow: none;
+  user-select: none;
 }
+
+/*.l {fill:#FFFFDD; stroke:none; stroke-linejoin:round}*/
+/*.w {fill:#99CCFF; stroke:none; stroke-linejoin:round}*/
+/*.s {fill:#DDDDDD; stroke:none; stroke-linejoin:round}*/
+
+.l {fill:#FFFFDD; stroke:black; stroke-linejoin:round}
+.w {fill:#99CCFF; stroke:black; stroke-linejoin:round}
+.s {fill:#DDDDDD; stroke:black; stroke-linejoin:round}
+
+text {
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:5px;
+}
+
+line[type="adjacencies"] {
+  pointer-events: none;
+  stroke: grey;
+}
+
+g[type="t"]:hover{
+  opacity: .5;
+}
+
+[type="hexgrid"]    {stroke: #000; fill: none; stroke-width: 0.1; }
+
+[country="Unowned"]	{fill:#FFFFDD; stroke:black; stroke-linejoin:round}
+
+[country="Austria"]	{fill:#FF0000; stroke:black}
+[country="England"]	{fill:#0000FF; stroke:black}
+[country="France"] 	{fill:#00FFFF; stroke:black}
+[country="Germany"]	{fill:#808080; stroke:black}
+[country="Italy"]  	{fill:#00FF00; stroke:black}
+[country="Russia"] 	{fill:#008000; stroke:black}
+[country="Turkey"] 	{fill:#FFFF00; stroke:black}
 
 map {
   position: relative;
-
+/*
   height: 1000px;
 
   max-height: 1000px;
-  min-height: 1000px;
+  min-height: 1000px;*/
 }

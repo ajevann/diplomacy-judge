@@ -4,4 +4,6 @@
 # calculate strength of move
 # calculate potential opponents strength
 # calculate potential opponents strategy
-#
+# anything clickable should be tag g
+# translate animation
+# adjacencies need to be more specific (naval v land units)
