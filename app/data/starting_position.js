@@ -5,7 +5,7 @@ var startingPositions = {
     ['sc', 'Vienna', 'VIE'],
     ['a', 'Budapest', 'BUD'],
     ['f', 'Trieste', 'TRI'],
-    ['a', 'Vienna', 'VIE'],
+    ['a', 'Vienna', 'VIE']
   ],
   England: [
     ['sc', 'Edinburgh', 'EDI'],
@@ -13,7 +13,7 @@ var startingPositions = {
     ['sc', 'London', 'LON'],
     ['f', 'Edinburgh', 'EDI'],
     ['a', 'Liverpool', 'LVP'],
-    ['f', 'London', 'LON'],
+    ['f', 'London', 'LON']
   ],
   France: [
     ['sc', 'Brest', 'BRE'],
@@ -21,7 +21,7 @@ var startingPositions = {
     ['sc', 'Paris', 'PAR'],
     ['f', 'Brest', 'BRE'],
     ['a', 'Marseilles', 'MAR'],
-    ['a', 'Paris', 'PAR'],
+    ['a', 'Paris', 'PAR']
   ],
   Germany: [
     ['sc', 'Berlin', 'BER'],
@@ -29,7 +29,7 @@ var startingPositions = {
     ['sc', 'Munich', 'MUN'],
     ['a', 'Berlin', 'BER'],
     ['f', 'Kiel', 'KIE'],
-    ['a', 'Munich', 'MUN'],
+    ['a', 'Munich', 'MUN']
   ],
   Italy: [
     ['sc', 'Naples', 'NAP'],
@@ -37,7 +37,7 @@ var startingPositions = {
     ['sc', 'Venice', 'VEN'],
     ['f', 'Naples', 'NAP'],
     ['a', 'Rome', 'ROM'],
-    ['a', 'Venice', 'VEN'],
+    ['a', 'Venice', 'VEN']
   ],
   Turkey: [
     ['sc', 'Ankara', 'ANK'],
@@ -45,7 +45,7 @@ var startingPositions = {
     ['sc', 'Smyrna', 'SMY'],
     ['f', 'Ankara', 'ANK'],
     ['a', 'Constantinople', 'CON'],
-    ['a', 'Smyrna', 'SMY'],
+    ['a', 'Smyrna', 'SMY']
   ],
   Russia: [
     ['sc', 'Moscow', 'MOS'],
@@ -55,6 +55,6 @@ var startingPositions = {
     ['a', 'Moscow', 'MOS'],
     ['f', 'St Petersburg', 'STP'],
     ['f', 'Sevastopol', 'SEV'],
-    ['a', 'Warsaw', 'WAR'],
+    ['a', 'Warsaw', 'WAR']
   ]
 };

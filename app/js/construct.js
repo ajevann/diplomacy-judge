@@ -1,6 +1,17 @@
 'use strict';
 
 var construct = {
+  tiles: function(){
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('title', 'tiles');
+    main.svg.appendChild(g);
+    main.tiles = document.querySelector('svg > g[title="tiles"]');
+
+    var i;
+    for (i in tiles) {
+        construct.tile(tiles[i]);
+    }
+  },
   tile: function(o) {
     var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     g.setAttribute('title', o.title);
@@ -29,16 +40,47 @@ var construct = {
       g.appendChild(p);
     }
 
+    main.tiles.appendChild(g);
+  },
+  tileNames: function(format){
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('title', 'tileNames');
+    main.svg.appendChild(g);
+    main.tileNames = document.querySelector('svg > g[title="tileNames"]');
+
+    var i;
+    for (i in tiles) {
+        construct.tileName(tiles[i], format);
+    }
+  },
+  tileName: function(o, format) {
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('title', o.title);
+    g.setAttribute('text', o.text);
+    g.setAttribute('type', 't');
+
     var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    var textNode = document.createTextNode(o.text);
-    // var textNode = document.createTextNode(o.loc);
+    var textNode = document.createTextNode((format === 'abbr' ? o.text : o.title));
 
     text.setAttribute('x', o.textX);
     text.setAttribute('y', o.textY);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('class', 'name');
     text.appendChild(textNode);
 
     g.appendChild(text);
+    main.tileNames.appendChild(g);
+  },
+  supplyCenters: function(){
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('title', 'supplyCenters');
     main.svg.appendChild(g);
+    main.supplyCenters = document.querySelector('svg > g[title="supplyCenters"]');
+
+    var i;
+    for (i in tiles) {
+        construct.supplyCenter(tiles[i]);
+    }
   },
   supplyCenter: function(o) {
     if (o.scloc) {
@@ -54,10 +96,15 @@ var construct = {
       sc.setAttribute('transform', 'translate(' + o.scloc + ')');
 
       g.appendChild(sc);
-      main.svg.appendChild(g);
+      main.supplyCenters.appendChild(g);
     }
   },
   startingPositions: function(numOfPlayers) {
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('title', 'units');
+    main.svg.appendChild(g);
+    main.units = document.querySelector('svg > g[title="units"]');
+
     var i, j;
     for (i in startingPositions) {
       for (j in startingPositions[i]) {
@@ -90,15 +137,21 @@ var construct = {
     g.setAttribute('country', o.country);
     g.setAttribute('transform', 'translate(' + tiles[o.text].loc + ')');
 
-    var p1 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    p1.setAttribute('points', '-2,-3 10,-3 -2,-13');
-    g.appendChild(p1);
+    //boat shape
+    // var p1 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    // p1.setAttribute('points', '-2,-3 10,-3 -2,-13');
+    // g.appendChild(p1);
+    //
+    // var p2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    // p2.setAttribute('points', '-12,-1 -6,5 6,5 12,-1');
+    // g.appendChild(p2);
 
-    var p2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    p2.setAttribute('points', '-12,-1 -6,5 6,5 12,-1');
-    g.appendChild(p2);
+    //rectangle
+    var p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    p.setAttribute('points', '-5,0 10,0 10,5 -5,5');
+    g.appendChild(p);
 
-    main.svg.appendChild(g);
+    main.units.appendChild(g);
   },
   landUnit: function(o) {
     var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
@@ -108,18 +161,24 @@ var construct = {
     g.setAttribute('country', o.country);
     g.setAttribute('transform', 'translate(' + tiles[o.text].loc + ')');
 
-    var p1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    p1.setAttribute('d', 'M9,-6 L2,0 M9,6 L0,0');
-    g.appendChild(p1);
+    //cannon shape
+    // var p1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    // p1.setAttribute('d', 'M9,-6 L2,0 M9,6 L0,0');
+    // g.appendChild(p1);
+    //
+    // var p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    // p2.setAttribute('d', 'M-11,-6 v4 h17 a2,2 0,0 0 0,-4z');
+    // g.appendChild(p2);
+    //
+    // var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    // c.setAttribute('r', '6');
+    // g.appendChild(c);
 
-    var p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    p2.setAttribute('d', 'M-11,-6 v4 h17 a2,2 0,0 0 0,-4z');
-    g.appendChild(p2);
+    //square
+    var p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    p.setAttribute('points', '-5,-5 5,-5 5,5 -5,5');
+    g.appendChild(p);
 
-    var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    c.setAttribute('r', '6');
-    g.appendChild(c);
-
-    main.svg.appendChild(g);
+    main.units.appendChild(g);
   }
 };

@@ -11,15 +11,15 @@ body {
   user-select: none;
 }
 
-/*.l {fill:#FFFFDD; stroke:none; stroke-linejoin:round}*/
-/*.w {fill:#99CCFF; stroke:none; stroke-linejoin:round}*/
-/*.s {fill:#DDDDDD; stroke:none; stroke-linejoin:round}*/
+/*.l {fill:#fefee9; stroke:none; stroke-linejoin:round}
+.w {fill:#c6ecff; stroke:none; stroke-linejoin:round}
+.s {fill:#DDDDDD; stroke:none; stroke-linejoin:round}*/
 
-.l {fill:#FFFFDD; stroke:black; stroke-linejoin:round}
-.w {fill:#99CCFF; stroke:black; stroke-linejoin:round}
+.l {fill:#fefee9; stroke:black; stroke-linejoin:round}
+.w {fill:#c6ecff; stroke:black; stroke-linejoin:round}
 .s {fill:#DDDDDD; stroke:black; stroke-linejoin:round}
 
-text {
+text.name {
   font-family:Arial, Helvetica, sans-serif;
   font-size:5px;
 }
