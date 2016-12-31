@@ -1,12 +1,18 @@
 'use strict';
 
 var construct = {
-  tiles: function(){
-    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('title', 'tiles');
-    main.svg.appendChild(g);
-    main.tiles = document.querySelector('svg > g[title="tiles"]');
+  svgContainers: function(){
+    var containers = ['tiles','grid','adjacencies','currentAdjacencies','tileNames','supplyCenters','units'];
 
+    var i;
+    for (i in containers) {
+      var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('title', containers[i]);
+      main.svg.appendChild(g);
+      main[containers[i]] = document.querySelector('svg > g[title="' + containers[i] + '"]');
+    }
+  },
+  tiles: function(){
     var i;
     for (i in tiles) {
         construct.tile(tiles[i]);
@@ -43,11 +49,6 @@ var construct = {
     main.tiles.appendChild(g);
   },
   tileNames: function(format){
-    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('title', 'tileNames');
-    main.svg.appendChild(g);
-    main.tileNames = document.querySelector('svg > g[title="tileNames"]');
-
     var i;
     for (i in tiles) {
         construct.tileName(tiles[i], format);
@@ -64,6 +65,7 @@ var construct = {
 
     text.setAttribute('x', o.textX);
     text.setAttribute('y', o.textY);
+    (format === 'full' && o.rotate) ? text.setAttribute('transform', 'rotate(' + o.rotate + ',' + o.textX + ',' + o.textY  + ')') : 0;
     text.setAttribute('text-anchor', 'middle');
     text.setAttribute('class', 'name');
     text.appendChild(textNode);
@@ -72,11 +74,6 @@ var construct = {
     main.tileNames.appendChild(g);
   },
   supplyCenters: function(){
-    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('title', 'supplyCenters');
-    main.svg.appendChild(g);
-    main.supplyCenters = document.querySelector('svg > g[title="supplyCenters"]');
-
     var i;
     for (i in tiles) {
         construct.supplyCenter(tiles[i]);
@@ -100,11 +97,6 @@ var construct = {
     }
   },
   startingPositions: function(numOfPlayers) {
-    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('title', 'units');
-    main.svg.appendChild(g);
-    main.units = document.querySelector('svg > g[title="units"]');
-
     // switch(numOfPlayers){
     //   case 2:
     //     // austria + germany + turkey
@@ -211,7 +203,8 @@ var construct = {
     var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     g.setAttribute('title', o.title);
     g.setAttribute('text', o.text);
-    g.setAttribute('type', 'f');
+    g.setAttribute('type', 'unit');
+    g.setAttribute('unittype', 'f');
     g.setAttribute('country', o.country);
     g.setAttribute('transform', 'translate(' + tiles[o.text].loc + ')');
 
@@ -240,7 +233,8 @@ var construct = {
     var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     g.setAttribute('title', o.title);
     g.setAttribute('text', o.text);
-    g.setAttribute('type', 'a');
+    g.setAttribute('type', 'unit');
+    g.setAttribute('unittype', 'a');
     g.setAttribute('country', o.country);
     g.setAttribute('transform', 'translate(' + tiles[o.text].loc + ')');
 

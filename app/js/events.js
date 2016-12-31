@@ -12,25 +12,42 @@ var events = {
       main.tiles.onmousedown = events.tileEvents.mousedown;
       main.tiles.onmouseup = events.tileEvents.mouseup;
     }
-
-    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('title', 'currentAdjacencies');
-    main.svg.appendChild(g);
-    main.currentAdjacencies = document.querySelector('svg > g[title="currentAdjacencies"]');
   },
   unitMovement: {
     click: function(e) {
-      console.log(e.target.tagName);
-      console.log(e.target.parentNode.getAttribute('type') === 'a');
+      main.currentAdjacencies.innerHTML = '';
     },
     mouseover: function(e) {
 
     },
     mousedown: function(e) {
+      if(e.target.parentNode.getAttribute('type') === 'unit'){
+        var abbr = e.target.parentNode.getAttribute('text');
 
+        var i;
+        for(i in adjacencies[main.adjacenciesToShow][abbr]){
+          var sloc = tiles[abbr].loc;
+          var sX = parseInt(sloc.split(',')[0]);
+          var sY = parseInt(sloc.split(',')[1]);
+
+          var dloc = tiles[adjacencies[main.adjacenciesToShow][abbr][i]].loc;
+          var dX = parseInt(dloc.split(',')[0]);
+          var dY = parseInt(dloc.split(',')[1]);
+
+
+          var g = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+          g.setAttribute('points', sX + ' ' + sY + ' ' + (dX) + ' ' + (dY));
+          g.setAttribute('marker-end', 'url(#circleFilled)');
+          g.setAttribute('stroke', 'red');
+          g.setAttribute('stroke-width', '1');
+          g.setAttribute('stroke-dasharray', '5, 5');
+
+          main.currentAdjacencies.appendChild(g);
+        }
+      }
     },
     mouseup: function(e) {
-
+      main.currentAdjacencies.innerHTML = '';
     },
     mousemove: function(e){
 
@@ -38,9 +55,7 @@ var events = {
   },
   tileEvents: {
     click: function(e) {
-      if(e.target.tagName === 'text' || e.target.tagName === 'polygon'){
-
-      }
+      main.currentAdjacencies.innerHTML = '';
     },
     mouseover: function(e) {
 
@@ -56,7 +71,7 @@ var events = {
 
           var g = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
           g.setAttribute('points', tiles[abbr].textX + ' ' + tiles[abbr].textY + ' ' + (dX + 5) + ' ' + (dY - 1));
-          // g.setAttribute('marker-end', 'url(#triangle)');
+          g.setAttribute('marker-end', 'url(#circleOutline)');
           g.setAttribute('stroke', 'red');
           g.setAttribute('stroke-width', '1');
           g.setAttribute('stroke-dasharray', '5, 5');

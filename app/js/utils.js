@@ -63,9 +63,6 @@ var utils = {
     main.svg.appendChild(g);
   },
   squareGrid: function(size) {
-    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('title', 'grid');
-
     var i, j = 0, length = document.body.clientWidth;
     for (i = 0; i < length; i += size) {
       var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -75,7 +72,7 @@ var utils = {
       l.setAttribute('y2', i);
       l.setAttribute('stroke', 'grey');
       (i % (size * 10) === 0) ? l.setAttribute('stroke-width', '0.25') : l.setAttribute('stroke-width', '0.1');
-      g.appendChild(l);
+      main.grid.appendChild(l);
 
       l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
       l.setAttribute('x1', i);
@@ -84,7 +81,7 @@ var utils = {
       l.setAttribute('y2', length);
       l.setAttribute('stroke', 'grey');
       (i % (size * 10) === 0) ? l.setAttribute('stroke-width', '0.25') : l.setAttribute('stroke-width', '0.1');
-      g.appendChild(l);
+      main.grid.appendChild(l);
 
       if(i % (size * 10) === 0){
         if(j === 0){
@@ -95,7 +92,7 @@ var utils = {
           text.setAttribute('font-size', size);
           text.appendChild(textNode);
 
-          g.appendChild(text);
+          main.grid.appendChild(text);
         }else{
           var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
           var textNode = document.createTextNode(String.fromCharCode(j + 65));
@@ -104,7 +101,7 @@ var utils = {
           text.setAttribute('font-size', size);
           text.appendChild(textNode);
 
-          g.appendChild(text);
+          main.grid.appendChild(text);
 
           var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
           var textNode = document.createTextNode(j);
@@ -113,14 +110,12 @@ var utils = {
           text.setAttribute('font-size', size);
           j > 1 ? text.appendChild(textNode) : 0;
 
-          g.appendChild(text);
+          main.grid.appendChild(text);
         }
 
         j++;
       }
     }
-
-    main.svg.appendChild(g);
   },
   drawAdjacencies: function(landSeaBothAll) {
     var i, j;

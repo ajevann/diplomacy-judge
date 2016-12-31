@@ -7,18 +7,14 @@ var main = {
   adjacenciesToShow: 'all', // land, sea, or all
   init: function() {
     main.svg = document.querySelector('svg');
+    construct.svgContainers();
     construct.tiles();
-
     // utils.hexGrid(5);
-    utils.squareGrid(5);
-
+    utils.squareGrid(main.squareGridSize);
     // utils.drawAdjacencies(main.adjacenciesToShow);
-
     construct.supplyCenters();
-    construct.tileNames('abbr');
-
-    var numOfPlayers = 7;
-    construct.startingPositions(numOfPlayers);
+    construct.tileNames(main.tileNames);
+    construct.startingPositions(main.numOfPlayers);
 
     events.init();
 
