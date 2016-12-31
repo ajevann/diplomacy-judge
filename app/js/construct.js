@@ -105,25 +105,103 @@ var construct = {
     main.svg.appendChild(g);
     main.units = document.querySelector('svg > g[title="units"]');
 
+    // switch(numOfPlayers){
+    //   case 2:
+    //     // austria + germany + turkey
+    //     // england + france + russia
+    //     // italy netral
+    //     // game begins in 1914, coin flip to assign italy
+    //     // first to 24
+    //     break;
+    //   case 3:
+    //     // enland + germany + austria
+    //     // russia + italy
+    //     // france + Turkey
+    //     break;
+    //   case 4:
+    //     //England
+    //     //austria + france
+    //     //germany + Turkey
+    //     // italy + russia
+    //     break;
+    //   case 5:
+    //     //italy and germany stay static
+    //     //cannot support each other but may be supported by other players
+    //     // if forced to retreat, they are disbanded
+    //     break;
+    //   case 6:
+    //     //italy stays static
+    //     //cannot support each other but may be supported by other players
+    //     // if forced to retreat, they are disbanded
+    //     break;
+    //   case 7:
+    //     //default
+    //     break;
+    //   default:
+    //     break;
+    // }
+
     var i, j;
     for (i in startingPositions) {
+      var country = i;
+      switch(numOfPlayers){
+        case 2:
+          if(i === 'Austria' || i === 'Germany' || i === 'Turkey'){
+            country = 'Austria';
+          }else if(i === 'England' || i === 'France' || i === 'Russia'){
+            country = 'England';
+          }else if(i === 'Italy'){
+            country = 'Neutral';
+          }
+          // game begins in 1914, coin flip to assign italy
+          // first to 24
+          break;
+        case 3:
+          if(i === 'Austria' || i === 'Germany' || i === 'England'){
+            country = 'Austria';
+          }else if(i === 'Turkey' || i === 'France'){
+            country = 'France';
+          }else if(i === 'Russia' || i === 'Italy'){
+            country = 'Russia';
+          }
+          break;
+        case 4:
+          if(i === 'Austria' || i === 'France'){
+            country = 'Austria';
+          }else if(i === 'Turkey' || i === 'Germany'){
+            country = 'Turkey';
+          }else if(i === 'Russia' || i === 'Italy'){
+            country = 'Russia';
+          }
+          break;
+        case 5:
+          if(i === 'Germany' || i === 'Italy'){
+            country = 'Neutral';
+          }
+          // neutral cannot support each other but may be supported by other players
+          // if forced to retreat, they are disbanded
+          break;
+        case 6:
+          if(i === 'Italy'){
+            country = 'Neutral';
+          }
+          //cannot support each other but may be supported by other players
+          // if forced to retreat, they are disbanded
+          break;
+        case 7:
+          //default
+          break;
+        default:
+          break;
+      }
+
       for (j in startingPositions[i]) {
-        if (startingPositions[i][j][0] === 'sc') {
-          document.querySelector('g[title="' + startingPositions[i][j][1] + '"] > circle').setAttribute('country', i);
+        if (startingPositions[i][j][0] === 'sc' && document.querySelector('g[title="' + startingPositions[i][j][1] + '"] > circle')) {
+          document.querySelector('g[title="' + startingPositions[i][j][1] + '"] > circle').setAttribute('country', country);
         } else if (startingPositions[i][j][0] === 'a') {
-          construct.landUnit({
-            country: i,
-            title: startingPositions[i][j][1],
-            text: startingPositions[i][j][2]
-          });
-          // document.querySelector('g[title="' + startingPositions[i][j][1] + '"] > circle').setAttribute('country', i);
+          construct.landUnit({ country: country, title: startingPositions[i][j][1], text: startingPositions[i][j][2] });
         } else if (startingPositions[i][j][0] === 'f') {
-          construct.seaUnit({
-            country: i,
-            title: startingPositions[i][j][1],
-            text: startingPositions[i][j][2]
-          });
-          // document.querySelector('g[title="' + startingPositions[i][j][1] + '"] > circle').setAttribute('country', i);
+          construct.seaUnit({ country: country, title: startingPositions[i][j][1], text: startingPositions[i][j][2] });
         }
       }
     }
@@ -147,8 +225,13 @@ var construct = {
     // g.appendChild(p2);
 
     //rectangle
+    // var p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    // p.setAttribute('points', '-5,0 10,0 10,5 -5,5');
+    // g.appendChild(p);
+
+    //triangle
     var p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    p.setAttribute('points', '-5,0 10,0 10,5 -5,5');
+    p.setAttribute('points', '-5,5 0,-5 5,5');
     g.appendChild(p);
 
     main.units.appendChild(g);

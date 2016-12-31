@@ -73,7 +73,7 @@ var utils = {
       l.setAttribute('y1', i);
       l.setAttribute('x2', length);
       l.setAttribute('y2', i);
-      l.setAttribute('stroke', 'black');
+      l.setAttribute('stroke', 'grey');
       (i % (size * 10) === 0) ? l.setAttribute('stroke-width', '0.25') : l.setAttribute('stroke-width', '0.1');
       g.appendChild(l);
 
@@ -82,14 +82,14 @@ var utils = {
       l.setAttribute('y1', 0);
       l.setAttribute('x2', i);
       l.setAttribute('y2', length);
-      l.setAttribute('stroke', 'black');
+      l.setAttribute('stroke', 'grey');
       (i % (size * 10) === 0) ? l.setAttribute('stroke-width', '0.25') : l.setAttribute('stroke-width', '0.1');
       g.appendChild(l);
 
       if(i % (size * 10) === 0){
         if(j === 0){
           var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-          var textNode = document.createTextNode("A, 1");
+          var textNode = document.createTextNode("A,1");
           text.setAttribute('x', i + 0.5);
           text.setAttribute('y', size - 0.2);
           text.setAttribute('font-size', size);
@@ -122,16 +122,16 @@ var utils = {
 
     main.svg.appendChild(g);
   },
-  drawAdjacencies: function() {
+  drawAdjacencies: function(landSeaBothAll) {
     var i, j;
 
     var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     g.setAttribute('title', 'adjacencies');
 
-    for (i in adjacencies) {
-      for (j = 0; j < adjacencies[i].length; j++) {
+    for (i in adjacencies[landSeaBothAll]) {
+      for (j = 0; j < adjacencies[landSeaBothAll][i].length; j++) {
         var from = tiles[i].loc;
-        var to = tiles[adjacencies[i][j]].loc;
+        var to = tiles[adjacencies[landSeaBothAll][i][j]].loc;
 
         var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         l.setAttribute('type', 'adjacencies');

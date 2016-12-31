@@ -2,21 +2,27 @@
 
 var main = {
   svg: null,
+  tileNames: 'abbr', //full/abbr
+  squareGridSize: 5,
+  adjacenciesToShow: 'all', // land, sea, or all
   init: function() {
-    main.svg = document.querySelector('svg'); //Get svg element
+    main.svg = document.querySelector('svg');
     construct.tiles();
-    construct.supplyCenters();
-    construct.tileNames('abbr'); //full/abbr
 
     // utils.hexGrid(5);
     utils.squareGrid(5);
 
-    // utils.drawAdjacencies();
+    // utils.drawAdjacencies(main.adjacenciesToShow);
 
-    var numOfPlayers = 1;
+    construct.supplyCenters();
+    construct.tileNames('abbr');
+
+    var numOfPlayers = 7;
     construct.startingPositions(numOfPlayers);
 
     events.init();
+
+    test.run();
   }
 };
 
