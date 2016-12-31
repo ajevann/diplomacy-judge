@@ -1,8 +1,8 @@
 "use strict";
 
 var main = {
-  svg: null,
-  tileNames: 'abbr', //full/abbr
+  svg: document.querySelector('svg'),
+  tileNamePref: 'abbr', //full/abbr
   squareGridSize: 5,
   adjacenciesToShow: 'all', // land, sea, or all
   init: function() {
@@ -13,7 +13,7 @@ var main = {
     utils.squareGrid(main.squareGridSize);
     // utils.drawAdjacencies(main.adjacenciesToShow);
     construct.supplyCenters();
-    construct.tileNames(main.tileNames);
+    construct.tileNames(main.tileNamePref);
     construct.startingPositions(main.numOfPlayers);
 
     events.init();
@@ -23,3 +23,5 @@ var main = {
 };
 
 main.init();
+// construct.svgContainers();
+// construct.menu.construct({ loc: '100, 200' });

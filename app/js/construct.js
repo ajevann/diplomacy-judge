@@ -2,7 +2,17 @@
 
 var construct = {
   svgContainers: function(){
-    var containers = ['tiles','grid','adjacencies','currentAdjacencies','tileNames','supplyCenters','units'];
+    var containers = [
+      'tiles',
+      'grid',
+      'adjacencies',
+      'movement',
+      'currentAdjacencies',
+      'tileNames',
+      'supplyCenters',
+      'units',
+      'menu'
+    ];
 
     var i;
     for (i in containers) {
@@ -71,6 +81,26 @@ var construct = {
     text.appendChild(textNode);
 
     g.appendChild(text);
+
+    //
+    if(o.coast){
+      var i;
+      for(i in o.coast){
+        var coastText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        // var textNode = document.createTextNode((format === 'abbr' ? o.text : o.title));
+        var textNode = document.createTextNode(o.coast[i].title);
+
+        coastText.setAttribute('x', o.coast[i].locX);
+        coastText.setAttribute('y', o.coast[i].locY);
+        coastText.setAttribute('transform', 'rotate(' + o.coast[i].rotate + ',' + o.coast[i].locX + ',' + o.coast[i].locY  + ')');
+        coastText.setAttribute('text-anchor', 'middle');
+        coastText.setAttribute('class', 'coast');
+        coastText.appendChild(textNode);
+
+        g.appendChild(coastText);
+      }
+    }
+
     main.tileNames.appendChild(g);
   },
   supplyCenters: function(){
@@ -84,11 +114,11 @@ var construct = {
       var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       g.setAttribute('title', o.title);
       g.setAttribute('text', o.text);
+      g.setAttribute('country', 'Neutral');
       g.setAttribute('type', 'sc');
 
       var sc = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       sc.setAttribute('r', '3');
-      sc.setAttribute('country', 'Unowned');
       sc.setAttribute('uid', o.text);
       sc.setAttribute('transform', 'translate(' + o.scloc + ')');
 
@@ -97,42 +127,6 @@ var construct = {
     }
   },
   startingPositions: function(numOfPlayers) {
-    // switch(numOfPlayers){
-    //   case 2:
-    //     // austria + germany + turkey
-    //     // england + france + russia
-    //     // italy netral
-    //     // game begins in 1914, coin flip to assign italy
-    //     // first to 24
-    //     break;
-    //   case 3:
-    //     // enland + germany + austria
-    //     // russia + italy
-    //     // france + Turkey
-    //     break;
-    //   case 4:
-    //     //England
-    //     //austria + france
-    //     //germany + Turkey
-    //     // italy + russia
-    //     break;
-    //   case 5:
-    //     //italy and germany stay static
-    //     //cannot support each other but may be supported by other players
-    //     // if forced to retreat, they are disbanded
-    //     break;
-    //   case 6:
-    //     //italy stays static
-    //     //cannot support each other but may be supported by other players
-    //     // if forced to retreat, they are disbanded
-    //     break;
-    //   case 7:
-    //     //default
-    //     break;
-    //   default:
-    //     break;
-    // }
-
     var i, j;
     for (i in startingPositions) {
       var country = i;
@@ -188,14 +182,22 @@ var construct = {
       }
 
       for (j in startingPositions[i]) {
-        if (startingPositions[i][j][0] === 'sc' && document.querySelector('g[title="' + startingPositions[i][j][1] + '"] > circle')) {
-          document.querySelector('g[title="' + startingPositions[i][j][1] + '"] > circle').setAttribute('country', country);
+        if (startingPositions[i][j][0] === 'sc' && document.querySelector('g[title="' + startingPositions[i][j][1] + '"]')) {
+          document.querySelector('g[type="sc"][title="' + startingPositions[i][j][1] + '"]').setAttribute('country', country);
         } else if (startingPositions[i][j][0] === 'a') {
           construct.landUnit({ country: country, title: startingPositions[i][j][1], text: startingPositions[i][j][2] });
         } else if (startingPositions[i][j][0] === 'f') {
           construct.seaUnit({ country: country, title: startingPositions[i][j][1], text: startingPositions[i][j][2] });
         }
       }
+
+      // for (j in tiles) {
+      //   construct.landUnit({
+      //     country: country,
+      //     title: tiles[j].title,
+      //     text: tiles[j].text
+      //   });
+      // }
     }
 
   },
@@ -257,5 +259,45 @@ var construct = {
     g.appendChild(p);
 
     main.units.appendChild(g);
+  },
+  menu:{
+    construct: function(o){
+      main.menu.setAttribute('translate', o.loc);
+      construct.menu.menuItem('Move', 0, 0);
+      construct.menu.menuItem('Hold', 0, 25);
+      construct.menu.menuItem('Convoy', 0, 50);
+      construct.menu.menuItem('Support', 0, 75);
+    },
+    menuItem: function(text, translateX, translateY){
+      var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('type', 'menuItem');
+      g.setAttribute('transform', 'translate(100,100)');
+
+      var c = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      c.setAttribute('width', 100);
+      c.setAttribute('height', 20);
+      c.setAttribute('x', translateX);
+      c.setAttribute('y', translateY);
+      c.setAttribute('rx', 5);
+      c.setAttribute('ry', 5);
+      c.setAttribute('fill','white');
+      c.setAttribute('stroke','black');
+      g.appendChild(c);
+
+      var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      var tNode = document.createTextNode(text);
+
+      t.setAttribute('transform', 'translate(' + (translateX + 50) + ',' + (translateY + 17) + ')');
+      t.setAttribute('class', 'menuItem');
+      t.setAttribute('text-anchor', 'middle');
+      t.appendChild(tNode);
+
+      g.appendChild(t);
+
+      main.menu.appendChild(g);
+    },
+    destroy: function(){
+      main.menu.innerHTML = '';
+    }
   }
 };

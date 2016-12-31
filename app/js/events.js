@@ -1,16 +1,20 @@
 'use strict';
 
 var events = {
+  clickedElement: null,
+  mousedown: false,
   init: function(){
     if(main.units){
       main.units.onclick = events.unitMovement.click;
       main.units.onmousedown = events.unitMovement.mousedown;
       main.units.onmouseup = events.unitMovement.mouseup;
+      main.units.onmouseover = events.unitMovement.mouseover;
     }
     if(main.tiles){
       main.tiles.onclick = events.tileEvents.click;
       main.tiles.onmousedown = events.tileEvents.mousedown;
       main.tiles.onmouseup = events.tileEvents.mouseup;
+      main.tiles.onmouseover = events.tileEvents.mouseover;
     }
   },
   unitMovement: {
@@ -22,6 +26,8 @@ var events = {
     },
     mousedown: function(e) {
       if(e.target.parentNode.getAttribute('type') === 'unit'){
+        events.mousedown = true;
+        events.clickedElement = e.target.parentNode;
         var abbr = e.target.parentNode.getAttribute('text');
 
         var i;
@@ -47,6 +53,7 @@ var events = {
       }
     },
     mouseup: function(e) {
+      events.mousedown = false;
       main.currentAdjacencies.innerHTML = '';
     },
     mousemove: function(e){
@@ -58,10 +65,17 @@ var events = {
       main.currentAdjacencies.innerHTML = '';
     },
     mouseover: function(e) {
-
+      if(events.mousedown && e.target.parentNode.getAttribute('type') === 't'){
+        construct.menu.construct({
+          loc: tiles[e.target.parentNode.getAttribute('text')].loc
+        });
+      }
     },
     mousedown: function(e) {
       if(e.target.tagName === 'text' || e.target.tagName === 'polygon'){
+        events.mousedown = true;
+        events.clickedElement = e.target.parentNode;
+
         var abbr = e.target.parentNode.getAttribute('text');
 
         var i;
@@ -81,6 +95,7 @@ var events = {
       }
     },
     mouseup: function(e) {
+      events.mousedown = false;
       main.currentAdjacencies.innerHTML = '';
     },
     mousemove: function(e){

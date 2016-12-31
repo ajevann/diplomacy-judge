@@ -120,9 +120,6 @@ var utils = {
   drawAdjacencies: function(landSeaBothAll) {
     var i, j;
 
-    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('title', 'adjacencies');
-
     for (i in adjacencies[landSeaBothAll]) {
       for (j = 0; j < adjacencies[landSeaBothAll][i].length; j++) {
         var from = tiles[i].loc;
@@ -135,10 +132,23 @@ var utils = {
         l.setAttribute('y1', from.split(',')[1]);
         l.setAttribute('y2', to.split(',')[1]);
 
-        g.appendChild(l);
+        main.adjacencies.appendChild(l);
       }
     }
+  },
+  drawLine: function(floc, tloc, country){
+    //draw movement line
+    var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('type', 'movement');
+    // l.setAttribute('','');
+    // l.setAttribute('marker-end', 'url(#triangle)');
+    l.setAttribute('stroke-dasharray', '3, 3');
+    l.setAttribute('country', country);
+    l.setAttribute('x1', floc.split(',')[0]);
+    l.setAttribute('y1', floc.split(',')[1]);
+    l.setAttribute('x2', tloc.split(',')[0]);
+    l.setAttribute('y2', tloc.split(',')[1]);
 
-    main.svg.appendChild(g);
+    main.movement.appendChild(l);
   }
 };
